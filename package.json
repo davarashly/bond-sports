@@ -1,0 +1,34 @@
+{
+  "name": "bond-sports",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "ts-node --files config/deleteBuild.ts && tsc --project tsconfig.json",
+    "prod": "npm run build && npm run start",
+    "dev": "cross-env NODE_ENV=dev npm run build && cross-env NODE_ENV=dev npm run start",
+    "dev:watch": "cross-env NODE_ENV=dev nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node --files src/index.ts'",
+    "prettify": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/module-alias": "^2.0.1",
+    "@types/node": "^17.0.31",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^4.0.0",
+    "types-tsconfig": "^1.2.1",
+    "typescript": "^4.6.4"
+  }
+}

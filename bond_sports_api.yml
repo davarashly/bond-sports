@@ -1,0 +1,207 @@
+openapi: 3.0.0
+info:
+  title: Bond Sports
+  version: 1.0.0
+paths:
+  /api/accounts:
+    post:
+      tags:
+        - API
+      summary: Create account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                newAccount:
+                  dailyWithdrawalLimit: 12
+                  activeFlag: true
+                  accountType: 1
+                newPerson:
+                  name: Alex
+                  document: Passport
+                  birthDate: 11/13/1993
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  msg: Successfully created an account
+                  data:
+                    dailyWithdrawalLimit: 12
+                    activeFlag: true
+                    accountType: 1
+                    personId: 839324
+                    balance: 0
+                    createDate: '2022-06-07T00:14:25.960Z'
+                    accountId: 210989
+                  status: success
+  '/api/accounts/{ACCOUNT_ID}/deposit':
+    patch:
+      tags:
+        - API
+      summary: Deposit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                depositAmount: 450.5
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  msg: Deposit was successful
+                  data:
+                    balance: 450.5
+  '/api/accounts/{ACCOUNT_ID}/withdraw':
+    patch:
+      tags:
+        - API
+      summary: Withdraw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                withdrawAmount: 100
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  msg: Withdraw was successful
+                  data:
+                    balance: 350.5
+  '/api/accounts/{ACCOUNT_ID}/balance':
+    get:
+      tags:
+        - API
+      summary: Check balance
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  msg: Balance for account with id `210989`
+                  data:
+                    balance: 350.5
+  '/api/accounts/{ACCOUNT_ID}/block':
+    patch:
+      tags:
+        - API
+      summary: Block account
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  msg: Account with id `210989` was successfully deactivated
+  '/api/accounts/{ACCOUNT_ID}/activate':
+    patch:
+      tags:
+        - API
+      summary: Activate account
+      requestBody:
+        content: {}
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  msg: Account with id `210989` was successfully activated
+  '/api/transactions/{ACCOUNT_ID}':
+    get:
+      tags:
+        - API
+      summary: Get transactions
+      parameters:
+        - name: ACCOUNT_ID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  data:
+                    - accountId: 210989
+                      value: -100
+                      transactionDate: '2022-06-07T00:19:36.724Z'
+                      transactionId: 571598
+                    - accountId: 210989
+                      value: -450.5
+                      transactionDate: '2022-06-07T00:19:23.652Z'
+                      transactionId: 210308
+                    - accountId: 210989
+                      value: 450.5
+                      transactionDate: '2022-06-07T00:19:03.756Z'
+                      transactionId: 639995
+                    - accountId: 210989
+                      value: 450.5
+                      transactionDate: '2022-06-07T00:15:43.920Z'
+                      transactionId: 505560
+                  msg: Transaction List for account with id `210989`
